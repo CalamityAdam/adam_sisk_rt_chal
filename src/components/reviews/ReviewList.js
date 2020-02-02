@@ -10,6 +10,7 @@ const ListContainer = styled.div`
   justify-items: center;
   column-gap: auto;
   row-gap: 100px;
+  padding-bottom: 40px;
   grid-template-columns: 1fr 1fr 1fr;
   @media (max-width: 1000px) {
     grid-template-columns: 1fr 1fr;
