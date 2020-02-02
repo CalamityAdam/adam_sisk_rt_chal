@@ -1,8 +1,34 @@
 import React, { useEffect } from 'react';
+import styled from 'styled-components';
 import { ReviewDetails } from './';
 import { useStateValue } from '../../store/state';
 import { SET_SELECTED_REVIEW } from '../../store/actions';
 import { BACKEND_URL } from '../../App';
+
+/**
+ * ReviewPage styles
+ */
+const Container = styled.div`
+  margin: 0 120px;
+  display: grid;
+  grid-template-rows: minmax(250px, auto) minmax(146px, auto);
+  @media (max-width: 1000px) {
+    margin-left: 80px;
+    margin-right: 80px;
+  }
+  @media (max-width: 800px) {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  @media (max-width: 600px) {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  @media (max-width: 400px) {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+`;
 
 /**
  * props.id: " "
@@ -49,15 +75,17 @@ function ReviewPage({ id }) {
     };
   }, [id, dispatch]);
 
-  console.log(selectedReview);
   return (
-    <div>
+    <Container>
       {selectedReview ? (
         <ReviewDetails review={selectedReview} />
       ) : (
-        <h1>oops</h1>
+        /**
+         * !TODO add error handling for no review found
+         */
+        <h2>No such review found</h2>
       )}
-    </div>
+    </Container>
   );
 }
 

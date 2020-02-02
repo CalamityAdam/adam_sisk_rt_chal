@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from '@reach/router';
+import { Link, navigate } from '@reach/router';
 import styled from 'styled-components';
 
 /**
@@ -13,7 +13,7 @@ const CardContainer = styled.div`
   grid-template-rows: 28px 18px auto 16px;
   background-color: ${props => props.theme.offwhite};
   border-radius: 5px;
-  box-shadow: 0px 4px 4px rgba(188, 171, 174, 0.25);
+  box-shadow: ${props => props.theme.bs};
 `;
 const Place = styled.h2`
   font-size: 2.4rem;
@@ -30,7 +30,7 @@ const Rating = styled.div`
 const Content = styled.p`
   margin: 25px 0 0 0;
   font-size: 1.8rem;
-  font-color: ${props => props.theme.shuttlegray};
+  color: ${props => props.theme.shuttlegray};
 `;
 const CardFooter = styled.div`
   grid-template-columns: 1fr auto auto;
@@ -46,6 +46,7 @@ const PublishedAt = styled.span`
   color: ${props => props.theme.gray};
 `;
 
+
 /**
  * props.review: {
  *   author: "",
@@ -57,8 +58,15 @@ const PublishedAt = styled.span`
  *   }
  */
 function ReviewCard({ review }) {
+  /**
+   * click card to navigate to details
+   */
+  function handleCardClick() {
+    navigate(`/review/${review.id}`);
+  }
+  
   return (
-    <CardContainer>
+    <CardContainer onClick={handleCardClick} >
       <Place><Link to={`review/${review.id}`}  >{review.place}</Link></Place>
       <Rating>{'⭐'.repeat(review.rating)}</Rating>
       <Content>{`${review.content.substring(0, 20)}...`}</Content>

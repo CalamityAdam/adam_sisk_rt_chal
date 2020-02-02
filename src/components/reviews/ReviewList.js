@@ -8,7 +8,6 @@ import { ReviewCard } from './index';
 const ListContainer = styled.div`
   display: grid;
   justify-items: center;
-  margin-top: 100px;
   column-gap: auto;
   row-gap: 100px;
   grid-template-columns: 1fr 1fr 1fr;

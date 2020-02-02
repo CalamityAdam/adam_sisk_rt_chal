@@ -21,6 +21,7 @@ const NavContainer = styled.nav`
   border-bottom-right-radius: 7px;
   display: grid;
   align-items: center;
+  box-shadow: ${props => props.theme.bs};
   background-color: ${props => props.theme.blue};
   background-image: ${props => {
     const { red, orange, yellow, green, blue } = props.theme;
@@ -58,13 +59,8 @@ const NavContainer = styled.nav`
 const Logo = styled.img`
   box-sizing:  content-box;
   position: absolute;
-  /* align-self: center; */
   justify-self: center;
   width: 200px;
-  /* background-color: ${props => props.theme.offwhite};
-  border: 2px solid ${props => props.theme.offwhite};
-  border-radius: 5px;
-  padding: 9px 5px 0 5px; */
 `;
 
 function Nav() {

@@ -27,7 +27,10 @@ const theme = {
   bae:         '#BCABAE',
   gray:        '#8D95A3',
   offwhite:    '#FBFCFD',
+  bs: '0px 4px 4px rgba(0, 0, 0, 0.25)',
 };
+theme.grey = theme.gray;
+theme.shuttlegrey = theme.shuttlegray;
 
 /**
  * App styles
@@ -35,7 +38,7 @@ const theme = {
 const AppContainer = styled.div`
   width: 100vw;
   display: grid;
-  grid-template-rows: 60px auto;
+  grid-template-rows: 100px auto; /* 100px = 60px nav height + 40px margin */
   font-family: 'Roboto';
   font-size: 10px;
 `;
