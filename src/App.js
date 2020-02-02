@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { Router } from '@reach/router';
 import { Nav } from './components/layout';
 import { ReviewPage } from './components/reviews';
 import { ReviewList } from './components/reviews';
 import { useStateValue } from './store/state';
+import { SET_REVIEWS } from './store/actions';
 
 /**
  * API endpoints
  */
-const BACKEND_URL = 'http://localhost:3000';
+export const BACKEND_URL = 'http://localhost:3000';
 
 /**
  * global/context styles
@@ -42,7 +43,8 @@ const AppContainer = styled.div`
 function App() {
   /**
    *   state: {
-   *    reviews: [],
+   *     reviews: [],
+   *     error: " ",
    *   }
    */
   const [{ reviews, error }, dispatch] = useStateValue()
@@ -50,18 +52,36 @@ function App() {
   useEffect(() => {
     function setReviews(reviews) {
       dispatch({
-        type: 'setReviews',
-        reviews
-      })
+        type: SET_REVIEWS,
+        reviews,
+      });
     }
     
-    fetch(`${BACKEND_URL}/reviews`, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
+    /**
+     * cleanup utils
+     */
+    const controller = new AbortController();
+    const signal = controller.signal;
+    
+    function fetchAllReviews() {
+      fetch(`${BACKEND_URL}/reviews`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        signal,
+      })
       .then(res => res.json())
       .then(reviews => setReviews(reviews));
+    }
+    
+    fetchAllReviews();
+    
+    /**
+     * cleanup & unsubscribe function
+     */
+    return function cleanup() {
+      controller.abort();
+    }
   }, [dispatch]);
 
   return (

@@ -14,14 +14,15 @@ import reducer from './store/reducer';
  */
 const initialState = {
   error: '',
+  loading: false,
   reviews: [],
+  selectedReview: null,
 }
 
 ReactDOM.render(
   <StateProvider initialState={initialState} reducer={reducer}>
-    <ToastContainer>
-      <App />
-    </ToastContainer>
+    <ToastContainer />
+    <App />
   </StateProvider>,
   document.getElementById('root')
 );

@@ -1,11 +1,12 @@
 import React from 'react'
 
-function Review({ review }) {
+function ReviewDetails({ review }) {
   return (
     <div>
       <p>{review.place}</p>
+      <p>hi</p>
     </div>
   )
 }
 
-export default Review;
+export default ReviewDetails;

@@ -21,7 +21,7 @@ const ListContainer = styled.div`
 `;
 
 /**
- * propps.reviews: [ ]
+ * props.reviews: [ ]
  */
 function ReviewList({ reviews }) {
   return (
