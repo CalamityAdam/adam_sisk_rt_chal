@@ -1,8 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import styled, { ThemeProvider } from 'styled-components';
 import './App.css';
 import { Nav } from './components/layout';
-import styled, { ThemeProvider } from 'styled-components';
+import { ReviewList } from './components/reviews';
 
+/**
+ * backend API url
+ */
+const BACKEND_URL = 'http://localhost:3000';
+
+/**
+ * global style theme/colors
+ */
 const theme = {
   offwhite: '#FBFCFD',
   black: '#000000',
@@ -17,15 +26,22 @@ const AppContainer = styled.div`
 `;
 
 function App() {
+  const [reviews, setReviews] = useState([]);
   useEffect(() => {
-    console.log('did mount')
-    
-  }, [])
-  
+    fetch(`${BACKEND_URL}/reviews`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(res => res.json())
+      .then(reviews => setReviews(reviews));
+  }, []);
+
   return (
     <ThemeProvider theme={theme}>
       <AppContainer>
         <Nav />
+        <ReviewList reviews={reviews} />
       </AppContainer>
     </ThemeProvider>
   );
