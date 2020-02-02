@@ -2,6 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { ReviewCard } from './index';
 
+/**
+ * ReviewList styles
+ */
 const ListContainer = styled.div`
   display: grid;
   justify-items: center;
@@ -17,6 +20,9 @@ const ListContainer = styled.div`
   }
 `;
 
+/**
+ * propps.reviews: [ ]
+ */
 function ReviewList({ reviews }) {
   return (
     <ListContainer>
