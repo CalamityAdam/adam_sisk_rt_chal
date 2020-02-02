@@ -5,6 +5,16 @@
   font-size: 10px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+}
+
+* {
+  box-sizing: inherit;
+}
+
+h1,
+h2 {
+  margin: 0;
 }
 
 body {
