@@ -1,25 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect } from 'react';
 import './App.css';
+import { Nav } from './components/layout';
+import styled, { ThemeProvider } from 'styled-components';
+
+const theme = {
+  offwhite: '#FBFCFD',
+  black: '#000000',
+  blue: '#0057B3',
+  gray: '#8D95A3',
+};
+
+const AppContainer = styled.div`
+  width: 100vw;
+  display: grid;
+  grid-template-rows: 60px auto;
+`;
 
 function App() {
+  useEffect(() => {
+    console.log('did mount')
+    
+  }, [])
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <AppContainer>
+        <Nav />
+      </AppContainer>
+    </ThemeProvider>
   );
 }
 
