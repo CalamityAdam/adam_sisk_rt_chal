@@ -2,10 +2,29 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'normalize.css';
 import './index.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { StateProvider } from './store/state';
+import reducer from './store/reducer';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+/**
+ * initial state
+ */
+const initialState = {
+  error: '',
+  reviews: [],
+}
+
+ReactDOM.render(
+  <StateProvider initialState={initialState} reducer={reducer}>
+    <ToastContainer>
+      <App />
+    </ToastContainer>
+  </StateProvider>,
+  document.getElementById('root')
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

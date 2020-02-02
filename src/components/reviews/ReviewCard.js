@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from '@reach/router';
 import styled from 'styled-components';
 
 /**
@@ -18,6 +19,10 @@ const Place = styled.h2`
   font-size: 2.4rem;
   font-weight: 700;
   margin-bottom: 5px;
+  a {
+    color: ${props => props.theme.black};
+    text-decoration: none;
+  }
 `;
 const Rating = styled.div`
   font-size: 1.8rem;
@@ -54,7 +59,7 @@ const PublishedAt = styled.span`
 function ReviewCard({ review }) {
   return (
     <CardContainer>
-      <Place>{review.place}</Place>
+      <Place><Link to={`review/${review.id}`}  >{review.place}</Link></Place>
       <Rating>{'⭐'.repeat(review.rating)}</Rating>
       <Content>{`${review.content.substring(0, 20)}...`}</Content>
       <CardFooter>

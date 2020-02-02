@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { Router } from '@reach/router';
 import { Nav } from './components/layout';
-import { Review } from './components/reviews';
+import { ReviewPage } from './components/reviews';
 import { ReviewList } from './components/reviews';
+import { useStateValue } from './store/state';
 
 /**
  * API endpoints
@@ -44,8 +45,16 @@ function App() {
    *    reviews: [],
    *   }
    */
-  const [reviews, setReviews] = useState([]);
+  const [{ reviews, error }, dispatch] = useStateValue()
+  
   useEffect(() => {
+    function setReviews(reviews) {
+      dispatch({
+        type: 'setReviews',
+        reviews
+      })
+    }
+    
     fetch(`${BACKEND_URL}/reviews`, {
       headers: {
         'Content-Type': 'application/json',
@@ -53,7 +62,7 @@ function App() {
     })
       .then(res => res.json())
       .then(reviews => setReviews(reviews));
-  }, []);
+  }, [dispatch]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -61,7 +70,7 @@ function App() {
         <Nav />
         <Router>
           <ReviewList path="/" default reviews={reviews} />
-          <Review path="review/:id" />
+          <ReviewPage path="review/:id" />
         </Router>
       </AppContainer>
     </ThemeProvider>

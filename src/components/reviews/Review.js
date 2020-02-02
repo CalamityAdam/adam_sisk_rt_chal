@@ -1,11 +1,11 @@
 import React from 'react'
 
-function Review() {
+function Review({ review }) {
   return (
     <div>
-      <h1>hello from review show page</h1>
+      <p>{review.place}</p>
     </div>
-  );
+  )
 }
 
 export default Review;
