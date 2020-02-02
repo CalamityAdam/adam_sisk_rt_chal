@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from '@reach/router';
 import styled from 'styled-components';
 
 /**
@@ -71,7 +72,7 @@ function Nav() {
     <NavContainer>
       <ul>
         <li>
-          <a href="#">Reviews</a>
+          <Link to="/">Reviews</Link>
         </li>
         <Logo src="https://www.reviewtrackers.com/wp-content/themes/rt2020/img/ReviewTrackers-logo-secondary-reverse-2color@2x.png" />
       </ul>

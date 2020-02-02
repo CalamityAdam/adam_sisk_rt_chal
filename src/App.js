@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
+import { Router } from '@reach/router';
 import { Nav } from './components/layout';
+import { Review } from './components/reviews';
 import { ReviewList } from './components/reviews';
 
 /**
@@ -57,7 +59,10 @@ function App() {
     <ThemeProvider theme={theme}>
       <AppContainer>
         <Nav />
-        <ReviewList reviews={reviews} />
+        <Router>
+          <ReviewList path="/" default reviews={reviews} />
+          <Review path="review/:id" />
+        </Router>
       </AppContainer>
     </ThemeProvider>
   );
