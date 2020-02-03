@@ -75,10 +75,22 @@ const NameInput = styled.input`
  * }
  */
 function ResponseForm({ response, postResponse, setEditing }) {
-  const [content, setContent] = useState('');
-  const [author, setAuthor] = useState('');
-  response && setContent(response.content);
-  response && setAuthor(response.author);
+  // if response is null this review has no response yet
+  if (!response) {
+    response = {
+      content: '',
+      author: '',
+    };
+  }
+  /**
+   * state: {
+   *   content: '',
+   *   author: '',
+   * }
+   */
+  const [content, setContent] = useState(response.content);
+  const [author, setAuthor] = useState(response.author);
+
   function handleSubmit(e) {
     e.preventDefault();
     const formData = {
@@ -90,6 +102,13 @@ function ResponseForm({ response, postResponse, setEditing }) {
     }
     postResponse(formData);
   }
+
+  function cancelEditing() {
+    if (!response.content || !response.author) {
+      return;
+    }
+  }
+
   return (
     <Form>
       <ContentTextarea
@@ -108,11 +127,7 @@ function ResponseForm({ response, postResponse, setEditing }) {
         </button>
         {/* only display cancel button if editing an existing response */
         response && (
-          <button
-            type="button"
-            className="cancel"
-            onClick={() => setEditing(false)}
-          >
+          <button type="button" className="cancel" onClick={cancelEditing}>
             cancel
           </button>
         )}

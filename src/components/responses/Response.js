@@ -27,6 +27,33 @@ const Container = styled.div`
   .clickable:hover {
     cursor: pointer;
   }
+  .tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    font-size: 1.8rem;
+    opacity: 0;
+    transition: opacity 0.6s;
+
+    position: absolute;
+    z-index: 1;
+    width: 120px;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
+  }
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
 `;
 
 /**
@@ -35,21 +62,25 @@ const Container = styled.div`
  * }
  */
 function Response({ reviewId }) {
+  /**
+   * state: {
+   *   editing: bool,
+   *   response: { response } || null
+   * }
+   */
   const [editing, setEditing] = useState(false);
   const [response, setResponse] = useState(null);
+
   useEffect(() => {
-    console.group('effect ran');
-    console.log('reviewId: ', reviewId);
-    console.groupEnd()
     function fetchResponse() {
       fetch(`${BACKEND_URL}/responses?review_id=${reviewId}`, {
         headers: {
           'Content-Type': 'application/json',
         },
-      }).then(res => res.json())
+      })
+        .then(res => res.json())
         .then(response => {
-          console.log('in fetch', response)
-          const foundResponse = response[0]
+          const foundResponse = response[0];
           if (!foundResponse) {
             setEditing(true);
             return;
@@ -57,20 +88,29 @@ function Response({ reviewId }) {
           setResponse(foundResponse);
         });
     }
+
     fetchResponse();
-    
+
+    // cleanup function
     return function cleanup() {
       setEditing(false);
       setResponse(null);
-    }
+    };
   }, [reviewId]);
-  
+
+  /**
+   * data: {
+   *   content: " ",
+   *   author: " ",
+   *   published_at: " date "
+   * }
+   */
   function postResponse(data) {
     data.review_id = reviewId;
-    console.log(data)
+    data.published_at = data.published_at || new Date();
     /**
      * if an ID was sent along with the data, then this is an existing response
-     * and request should be of type PUT to /responses/:id
+     * and request should be of method PUT to /responses/:id
      * else POST to /responses
      */
     fetch(`${BACKEND_URL}/responses${data.id ? `/${data.id}` : ''}`, {
@@ -78,19 +118,20 @@ function Response({ reviewId }) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data)
-    }).then(res => res.json())
+      body: JSON.stringify(data),
+    })
+      .then(res => res.json())
       .then(resp => {
         setEditing(false);
         setResponse(resp);
-        console.log('hi', resp)
-      
       });
   }
+
   function handleEllipsisClick() {
     if (!response) return;
     setEditing(e => !e);
   }
+
   return (
     <Container>
       <ResponseLogo className="icon" />
@@ -103,8 +144,11 @@ function Response({ reviewId }) {
       ) : (
         response && <ResponseDetails response={response} />
       )}
-      <div className="clickable" onClick={handleEllipsisClick}>
-        <Ellipsis tabIndex="1" role="button" className="icon" />
+      <div role="button" className="clickable tooltip" onClick={handleEllipsisClick}>
+        <Ellipsis tabIndex="1" className="icon" />
+        <span className="tooltiptext">
+          {editing ? 'Cancel edit' : 'Edit response'}
+        </span>
       </div>
     </Container>
   );

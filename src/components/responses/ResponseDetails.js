@@ -29,7 +29,7 @@ const PublishedAt = styled.span`
 `;
 
 /**
- * props.response = { 
+ * props.response = {
  *   id: " ",
  *   content: " ",
  *   author: " ",
@@ -43,7 +43,9 @@ function ResponseDetails({ response }) {
       <Content>{response.content}</Content>
       <Footer>
         <Author>{response.author}</Author>
-        <PublishedAt>02/02/2020</PublishedAt>
+        <PublishedAt>
+          {new Date(response.published_at).toLocaleDateString()}
+        </PublishedAt>
       </Footer>
     </ResponseContainer>
   );
