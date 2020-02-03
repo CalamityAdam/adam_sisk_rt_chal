@@ -203,28 +203,11 @@
   ],
   "responses": [
     {
-      "content": "We're glad you feel that way.\nThanks!!\nyayy!!",
+      "content": "We're glad you feel that way!\nThanks!\nplease do visit again.",
       "author": "Tina Typer",
-      "id": "1",
-      "review_id": "5d707203b65083001e956f0a"
+      "id": "InJcfuC",
+      "review_id": "5d707203b65083001e956f0a",
+      "published_at": "2020-02-03T09:57:22.206Z"
     },
-    {
-      "content": "soup is good",
-      "author": "adam",
-      "review_id": "5d707203f1c60da307b00335",
-      "id": "mT2Otre"
-    },
-    {
-      "content": "lucky ya",
-      "author": "levi",
-      "review_id": "5d707203cbaeac7faefeed02",
-      "id": "-BwKPkY"
-    },
-    {
-      "content": "nice thanks for the feedback",
-      "author": "levi",
-      "review_id": "5d707203f1d8615c2808e1ea",
-      "id": "FHYLcFv"
-    }
   ]
 }
