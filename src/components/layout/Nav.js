@@ -21,15 +21,8 @@ const NavContainer = styled.nav`
   border-bottom-right-radius: 7px;
   display: grid;
   align-items: center;
-  box-shadow: ${props => props.theme.bs};
+  /* box-shadow: ${props => props.theme.bs}; */
   background-color: ${props => props.theme.blue};
-  background-image: ${props => {
-    const { red, orange, yellow, green, blue } = props.theme;
-    return window.outerWidth > 1400 && `linear-gradient(
-      to right,
-      ${blue} calc(80vw - 50px), ${green}, ${yellow}, ${orange}, ${red} 105%
-    )`;
-  }};
   ul {
     margin: 0;
     padding-left: 120px;
@@ -45,15 +38,6 @@ const NavContainer = styled.nav`
     font-size: 2.4rem;
     text-decoration: none;
     color: ${props => props.theme.offwhite};
-  }
-  @media (min-width: 1200px) {
-    background-image: ${props => {
-      const { red, orange, yellow, green, blue } = props.theme;
-      return window.outerWidth > 1400 && `linear-gradient(
-        to right,
-        ${blue} calc(80vw - 50px), ${green}, ${yellow}, ${orange}, ${red} 105%
-      )`;
-    }};
   }
 `;
 const Logo = styled.img`
