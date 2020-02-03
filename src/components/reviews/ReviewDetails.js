@@ -39,12 +39,14 @@ const Content = styled.p`
   hyphens: auto;
 `;
 const CardFooter = styled.div`
-  grid-template-columns: 1fr auto auto;
+  display: grid;
+  grid-template-columns: minmax(80px, min-content) auto auto;
 `;
 const Author = styled.span`
   display: inline-block;
   font-size: 1.4rem;
-  margin-right: 28px;
+  white-space: nowrap;
+  margin-right: 10px;
 `;
 const PublishedAt = styled.span`
   display: inline-block;

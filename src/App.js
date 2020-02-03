@@ -72,9 +72,8 @@ function App() {
           'Content-Type': 'application/json',
         },
         signal,
-      })
-      .then(res => res.json())
-      .then(reviews => setReviews(reviews));
+      }).then(res => res.json())
+        .then(reviews => setReviews(reviews));
     }
     
     fetchAllReviews();

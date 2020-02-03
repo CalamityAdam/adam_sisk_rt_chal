@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { ReviewDetails } from './';
+import { Response } from '../responses/';
 import { useStateValue } from '../../store/state';
 import { SET_SELECTED_REVIEW } from '../../store/actions';
 import { BACKEND_URL } from '../../App';
@@ -12,6 +13,8 @@ const Container = styled.div`
   margin: 0 120px;
   display: grid;
   grid-template-rows: minmax(250px, auto) minmax(146px, auto);
+  row-gap: 55px;
+  padding-bottom: 40px;
   @media (max-width: 1000px) {
     margin-left: 80px;
     margin-right: 80px;
@@ -32,10 +35,14 @@ const Container = styled.div`
 
 /**
  * props.id: " "
+ * state.response: { response } || null
  */
 function ReviewPage({ id }) {
   const [{ selectedReview }, dispatch] = useStateValue();
 
+  /**
+   * componentDidMount/Update
+   */
   useEffect(() => {
     function setSelectedReview(review) {
       dispatch({
@@ -50,6 +57,9 @@ function ReviewPage({ id }) {
     const controller = new AbortController();
     const signal = controller.signal;
 
+    /**
+     * fetch and set state.selectedReview
+     */
     function fetchReview(id) {
       fetch(`${BACKEND_URL}/reviews/${id}`, {
         headers: {
@@ -74,11 +84,14 @@ function ReviewPage({ id }) {
       });
     };
   }, [id, dispatch]);
-
+  
   return (
     <Container>
       {selectedReview ? (
+        <>
         <ReviewDetails review={selectedReview} />
+        <Response reviewId={selectedReview.id} />
+        </>
       ) : (
         /**
          * !TODO add error handling for no review found

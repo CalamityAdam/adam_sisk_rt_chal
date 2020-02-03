@@ -3,13 +3,6 @@ import { Link } from '@reach/router';
 import styled from 'styled-components';
 
 /**
- * !TODO gradient builder
- */
-// function gradientBuilder() {
-  
-// }
-
-/**
  * Nav styles
  */
 const NavContainer = styled.nav`
@@ -38,7 +31,7 @@ const NavContainer = styled.nav`
   }
 `;
 const Logo = styled.img`
-  box-sizing:  content-box;
+  box-sizing: content-box;
   position: absolute;
   justify-self: center;
   width: 200px;
