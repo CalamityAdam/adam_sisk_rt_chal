@@ -26,7 +26,7 @@ const Content = styled.p`
   margin: 25px 0;
   font-size: 1.8rem;
   color: ${props => props.theme.shuttlegray};
-  
+
   /* overflow protection */
   overflow-wrap: break-word;
   word-wrap: break-word;

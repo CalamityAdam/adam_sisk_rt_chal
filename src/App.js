@@ -45,13 +45,12 @@ const AppContainer = styled.div`
 
 function App() {
   /**
-   *   state: {
-   *     reviews: [],
-   *     error: " ",
-   *   }
+   * state: {
+   *   reviews: [],
+   * }
    */
-  const [{ reviews, error }, dispatch] = useStateValue()
-  
+  const [{ reviews }, dispatch] = useStateValue();
+
   useEffect(() => {
     function setReviews(reviews) {
       dispatch({
@@ -59,31 +58,28 @@ function App() {
         reviews,
       });
     }
-    
-    /**
-     * cleanup utils
-     */
+
+    // cleanup utils
     const controller = new AbortController();
     const signal = controller.signal;
-    
+
     function fetchAllReviews() {
       fetch(`${BACKEND_URL}/reviews`, {
         headers: {
           'Content-Type': 'application/json',
         },
         signal,
-      }).then(res => res.json())
+      })
+        .then(res => res.json())
         .then(reviews => setReviews(reviews));
     }
-    
+
     fetchAllReviews();
-    
-    /**
-     * cleanup & unsubscribe function
-     */
+
+    // cleanup & unsubscribe function
     return function cleanup() {
       controller.abort();
-    }
+    };
   }, [dispatch]);
 
   return (

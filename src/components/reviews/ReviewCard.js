@@ -14,6 +14,9 @@ const CardContainer = styled.div`
   background-color: ${props => props.theme.offwhite};
   border-radius: 5px;
   box-shadow: ${props => props.theme.bs};
+  :hover {
+    cursor: pointer;
+  }
 `;
 const Place = styled.h2`
   font-size: 2.4rem;
@@ -46,7 +49,6 @@ const PublishedAt = styled.span`
   color: ${props => props.theme.gray};
 `;
 
-
 /**
  * props.review: {
  *   author: "",
@@ -58,21 +60,23 @@ const PublishedAt = styled.span`
  *   }
  */
 function ReviewCard({ review }) {
-  /**
-   * click card to navigate to details
-   */
+  // click card to navigate to details
   function handleCardClick() {
     navigate(`/review/${review.id}`);
   }
-  
+
   return (
-    <CardContainer onClick={handleCardClick} >
-      <Place><Link to={`review/${review.id}`}  >{review.place}</Link></Place>
+    <CardContainer onClick={handleCardClick}>
+      <Place>
+        <Link to={`review/${review.id}`}>{review.place}</Link>
+      </Place>
       <Rating>{'⭐'.repeat(review.rating)}</Rating>
       <Content>{`${review.content.substring(0, 20)}...`}</Content>
       <CardFooter>
         <Author>{review.author}</Author>
-        <PublishedAt>{new Date(review.published_at).toLocaleDateString()}</PublishedAt>
+        <PublishedAt>
+          {new Date(review.published_at).toLocaleDateString()}
+        </PublishedAt>
       </CardFooter>
     </CardContainer>
   );

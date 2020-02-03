@@ -7,8 +7,6 @@ import {
 } from './actions';
 
 /**
- * reducer
- *
  * initial state = {
  *   error: '',
  *   loading: false,
@@ -26,7 +24,6 @@ export default function reducer(state, action) {
     case SET_SELECTED_REVIEW:
       return {
         ...state,
-        // selectedReview: state.reviews.find(r => r.id === action.id) || null,
         selectedReview: action.review,
       };
     case SET_ERROR:
