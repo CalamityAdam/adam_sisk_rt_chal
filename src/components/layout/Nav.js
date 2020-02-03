@@ -17,11 +17,8 @@ const NavContainer = styled.nav`
   height: 60px;
   left: 0px;
   top: 0px;
-  border-bottom-left-radius: 7px;
-  border-bottom-right-radius: 7px;
   display: grid;
   align-items: center;
-  /* box-shadow: ${props => props.theme.bs}; */
   background-color: ${props => props.theme.blue};
   ul {
     margin: 0;
