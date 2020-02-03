@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { ResponseForm, ResponseDetails } from './index';
-import { ReactComponent as ResponseLogo } from '../../response.svg';
-import { ReactComponent as Ellipsis } from '../../ellipsis.svg';
+import { ReactComponent as ResponseLogo } from '../../svg/response.svg';
+import { ReactComponent as Ellipsis } from '../../svg/ellipsis.svg';
 import { BACKEND_URL } from '../../App';
+import { useStateValue } from '../../store/state';
+import { SET_REVIEW_TO_RESPONDED } from '../../store/actions';
 
 /**
  * Response styles
@@ -13,7 +15,7 @@ const Container = styled.div`
   grid-template-columns: 80px auto 80px;
   background-color: ${props => props.theme.offwhite};
   padding: 35px 0;
-  border-radius: 5px;
+  border-radius: ${props => props.theme.br};
   box-shadow: ${props => props.theme.bs};
 
   .icon {
@@ -70,6 +72,7 @@ function Response({ reviewId }) {
    */
   const [editing, setEditing] = useState(false);
   const [response, setResponse] = useState(null);
+  const [, dispatch] = useStateValue();
 
   useEffect(() => {
     function fetchResponse() {
@@ -86,7 +89,8 @@ function Response({ reviewId }) {
             return;
           }
           setResponse(foundResponse);
-        });
+        })
+        .catch(err => console.error(err));
     }
 
     fetchResponse();
@@ -98,6 +102,13 @@ function Response({ reviewId }) {
     };
   }, [reviewId]);
 
+  function setReviewToResponded(id) {
+    dispatch({
+      type: SET_REVIEW_TO_RESPONDED,
+      id,
+    })
+  }
+  
   /**
    * data: {
    *   content: " ",
@@ -124,7 +135,9 @@ function Response({ reviewId }) {
       .then(resp => {
         setEditing(false);
         setResponse(resp);
-      });
+        setReviewToResponded(reviewId);
+      })
+      .then(err => console.error(err));
   }
 
   function handleEllipsisClick() {

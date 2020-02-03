@@ -4,6 +4,7 @@ import {
   SET_ERROR,
   START_LOADING,
   STOP_LOADING,
+  SET_REVIEW_TO_RESPONDED,
 } from './actions';
 
 /**
@@ -44,6 +45,16 @@ export default function reducer(state, action) {
         ...state,
         loading: true,
       };
+    case SET_REVIEW_TO_RESPONDED:
+      return {
+        ...state,
+        reviews: state.reviews.map(rev => {
+          if (rev.id === action.id) {
+            rev.responded = true;
+          }
+          return rev;
+        })
+      }
     default:
       return state;
   }

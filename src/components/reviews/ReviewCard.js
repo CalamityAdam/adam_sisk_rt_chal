@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, navigate } from '@reach/router';
 import styled from 'styled-components';
+import { ReactComponent as CommentIcon } from '../../svg/comment.svg';
 
 /**
  * ReviewCard styles
@@ -12,7 +13,7 @@ const CardContainer = styled.div`
   display: grid;
   grid-template-rows: 28px 18px auto 16px;
   background-color: ${props => props.theme.offwhite};
-  border-radius: 5px;
+  border-radius: ${props => props.theme.br};
   box-shadow: ${props => props.theme.bs};
   :hover {
     cursor: pointer;
@@ -36,12 +37,17 @@ const Content = styled.p`
   color: ${props => props.theme.shuttlegray};
 `;
 const CardFooter = styled.div`
-  grid-template-columns: 1fr auto auto;
+  display: grid;
+  grid-template-columns: 1fr auto auto 1fr;
+  .icon {
+    grid-column-end: 6;
+  }
 `;
 const Author = styled.span`
   display: inline-block;
   font-size: 1.4rem;
   margin-right: 28px;
+  white-space: nowrap;
 `;
 const PublishedAt = styled.span`
   display: inline-block;
@@ -56,7 +62,8 @@ const PublishedAt = styled.span`
  *   place: "",
  *   published_at: "date",
  *   rating: "int[0-5]",
- *   id: "uid"
+ *   id: "uid",
+ *   responded: bool
  *   }
  */
 function ReviewCard({ review }) {
@@ -77,6 +84,7 @@ function ReviewCard({ review }) {
         <PublishedAt>
           {new Date(review.published_at).toLocaleDateString()}
         </PublishedAt>
+        {review.responded && <CommentIcon className="icon"/>}
       </CardFooter>
     </CardContainer>
   );

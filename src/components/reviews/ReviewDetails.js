@@ -11,7 +11,7 @@ const Container = styled.div`
   display: grid;
   grid-template-rows: 28px 18px auto 16px;
   background-color: ${props => props.theme.offwhite};
-  border-radius: 5px;
+  border-radius: ${props => props.theme.br};
   box-shadow: ${props => props.theme.bs};
 `;
 const Place = styled.h2`
@@ -61,7 +61,8 @@ const PublishedAt = styled.span`
  *   place: "",
  *   published_at: "date",
  *   rating: "int[0-5]",
- *   id: "uid"
+ *   id: "uid",
+ *   responded: bool
  *   }
  */
 function ReviewDetails({ review }) {

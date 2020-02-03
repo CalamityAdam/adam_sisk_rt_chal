@@ -18,7 +18,7 @@ const Form = styled.form`
     font-size: 1.8rem;
     font-weight: 700;
     text-transform: uppercase;
-    border-radius: 5px;
+    border-radius: ${props => props.theme.br};
     margin-right: 10px;
     border: 1px solid ${props => props.theme.shuttlegray};
     background-color: transparent;
@@ -43,7 +43,7 @@ const ContentTextarea = styled.textarea`
   font-size: 1.8rem;
   background-color: ${props => props.theme.offwhite};
   border: 1px solid ${props => props.theme.gray};
-  border-radius: 5px;
+  border-radius: ${props => props.theme.br};
   box-shadow: inset 0px -1px 4px 0px rgba(0, 0, 0, 0.25);
   box-shadow: ${props => props.theme.bs};
   box-sizing: border-box;

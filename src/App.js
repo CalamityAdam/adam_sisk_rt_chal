@@ -27,7 +27,8 @@ const theme = {
   bae:         '#BCABAE',
   gray:        '#8D95A3',
   offwhite:    '#FBFCFD',
-  bs: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+  bs: '0px 4px 4px rgba(0, 0, 0, 0.25)', /* box-shadow */
+  br: '5px', /* border-radius */
 };
 theme.grey = theme.gray;
 theme.shuttlegrey = theme.shuttlegray;
@@ -58,10 +59,32 @@ function App() {
         reviews,
       });
     }
-
+    
     // cleanup utils
     const controller = new AbortController();
     const signal = controller.signal;
+    
+    async function addRespondedToReviews(reviews) {
+      // adds a boolean property to all reviews of whether the review has
+      // been responded to or not
+      const responses = await fetch(`${BACKEND_URL}/responses`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        signal,
+      }).then(res => res.json())
+        .then(responses => responses.map(res => res.review_id));
+        const modifiedReviews = reviews.map(review => {
+          if (responses.includes(review.id)) {
+            review.responded = true;
+          } else {
+            review.responded = false;
+          }
+          return review;
+        })
+        return modifiedReviews;
+    }
+
 
     function fetchAllReviews() {
       fetch(`${BACKEND_URL}/reviews`, {
@@ -71,7 +94,11 @@ function App() {
         signal,
       })
         .then(res => res.json())
-        .then(reviews => setReviews(reviews));
+        .then(async reviews => {
+          const modifiedReviews = await addRespondedToReviews(reviews);
+          setReviews(modifiedReviews);
+        })
+        .catch(err => console.error(err));
     }
 
     fetchAllReviews();

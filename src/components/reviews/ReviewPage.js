@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { ReviewDetails } from './';
 import { Response } from '../responses/';
@@ -40,9 +40,6 @@ const Container = styled.div`
 function ReviewPage({ id }) {
   const [{ selectedReview }, dispatch] = useStateValue();
 
-  /**
-   * componentDidMount/Update
-   */
   useEffect(() => {
     function setSelectedReview(review) {
       dispatch({
@@ -68,7 +65,8 @@ function ReviewPage({ id }) {
         signal,
       })
         .then(res => res.json())
-        .then(review => setSelectedReview(review));
+        .then(review => setSelectedReview(review))
+        .catch(err => console.error(err));
     }
 
     fetchReview(id);
